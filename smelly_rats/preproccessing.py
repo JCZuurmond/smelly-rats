@@ -3,6 +3,13 @@ from sklearn.base import TransformerMixin
 from sklearn.utils.validation import check_is_fitted, check_array
 
 
+def _check_if_pandas_dataframe(X, *, name='X'):
+    """Raises TypeError if `X` is not a `pd.DataFrame`."""
+    if not isinstance(X, pd.DataFrame):
+        raise TypeError(
+            f"Provided variable {name} is not of type pandas.DataFrame.")
+
+
 class ParetoTransformer(TransformerMixin):
     """"
     Applies Pareto scaling.
@@ -35,4 +42,6 @@ class ParetoTransformer(TransformerMixin):
                 f'{len(self.scaling_factors_)}'
             )
 
-        return (X.T / self.scaling_factors_).T
+    def __repr__(self):
+        return (f'ColumnSliceSelector(start={self.start:.3f},'
+                f'stop={self.stop:.3f})')
