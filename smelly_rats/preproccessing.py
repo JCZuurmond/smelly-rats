@@ -1,6 +1,7 @@
 import numpy as np
-from sklearn.base import TransformerMixin
-from sklearn.utils.validation import check_is_fitted, check_array
+import pandas as pd
+from sklearn.base import TransformerMixin, BaseEstimator
+from sklearn.utils.validation import check_array
 
 
 def _check_if_pandas_dataframe(X, *, name='X'):
@@ -36,11 +37,44 @@ class ParetoTransformer(TransformerMixin):
         check_is_fitted(self, ['scaling_factors_'])
         check_array(X, estimator=self)
 
-        if X.shape[0] != len(self.scaling_factors_):
-            raise ValueError(
-                f'Unexpected input dimension {X.shape[1]}, expected '
-                f'{len(self.scaling_factors_)}'
-            )
+        scaling_factors = np.sqrt(X.std(axis=1))
+        return (X.T / scaling_factors).T
+
+    def __repr__(self):
+        return 'ParetoTransformer()'
+
+
+class ColumnSliceSelector(BaseEstimator, TransformerMixin):
+    """
+    Select columns based on a slice.
+
+    This is found useful for selecting specifics bands in a multispectral data.
+
+    Parameters
+    ----------
+    column_slice : slice
+        The column slice to select.
+    """
+
+    def __init__(self, start, stop):
+        self.start = start
+        self.stop = stop
+        self.column_slice = slice(self.start, self.stop)
+
+    def fit(self, X, y=None):
+        """
+        Checks:
+
+        1. if input is a `pd.DataFrame`;
+        3. and if column names are in this data frame.
+        """
+        _check_if_pandas_dataframe(X, name='X')
+        return self
+
+    def transform(self, X):
+        """Selects the column according to the given slice."""
+        _check_if_pandas_dataframe(X, name='X')
+        return X.loc[:, self.column_slice]
 
     def __repr__(self):
         return (f'ColumnSliceSelector(start={self.start:.3f},'
