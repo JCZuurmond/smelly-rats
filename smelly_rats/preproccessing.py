@@ -29,12 +29,10 @@ class ParetoTransformer(TransformerMixin):
     def fit(self, X, y=None):
         """Computes the scaling factors."""
         check_array(X, estimator=self)
-        self.scaling_factors_ = np.sqrt(X.std(axis=1))
         return self
 
     def transform(self, X, y=None):
         """Scales the data """
-        check_is_fitted(self, ['scaling_factors_'])
         check_array(X, estimator=self)
 
         scaling_factors = np.sqrt(X.std(axis=1))
