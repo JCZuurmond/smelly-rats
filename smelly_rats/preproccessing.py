@@ -60,13 +60,6 @@ class ColumnSliceSelector(BaseEstimator, TransformerMixin):
         self.column_slice = slice(self.start, self.stop)
 
     def fit(self, X, y=None):
-        """
-        Checks:
-
-        1. if input is a `pd.DataFrame`;
-        3. and if column names are in this data frame.
-        """
-        _check_if_pandas_dataframe(X, name='X')
         return self
 
     def transform(self, X):
