@@ -11,7 +11,7 @@ def _check_if_pandas_dataframe(X, *, name='X'):
             f"Provided variable {name} is not of type pandas.DataFrame.")
 
 
-class ParetoTransformer(TransformerMixin):
+class ParetoTransformer(BaseEstimator, TransformerMixin):
     """"
     Applies Pareto scaling.
 
@@ -26,6 +26,9 @@ class ParetoTransformer(TransformerMixin):
     September 2009
     """
 
+    def __init__(self, with_mean=False):
+        self.with_mean = with_mean
+
     def fit(self, X, y=None):
         """Computes the scaling factors."""
         check_array(X, estimator=self)
@@ -34,6 +37,9 @@ class ParetoTransformer(TransformerMixin):
     def transform(self, X, y=None):
         """Scales the data """
         check_array(X, estimator=self)
+
+        if self.with_mean:
+            X = (X.T - X.mean(axis=1)).T
 
         scaling_factors = np.sqrt(X.std(axis=1))
         return (X.T / scaling_factors).T
