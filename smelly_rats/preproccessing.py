@@ -13,7 +13,7 @@ def log_step(func):
         out = func(*args, **kwargs)
         toc = time.perf_counter() - tic
 
-        logger.debug(f'{func.__name__} shape={out.shape} time={toc:.3f}')
+        logger.debug(f'[{func.__name__}] - shape={out.shape} time={toc:.3f}')
 
         return out
     return wrapper
