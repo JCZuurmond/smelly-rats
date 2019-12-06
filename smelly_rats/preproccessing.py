@@ -31,6 +31,41 @@ def _check_if_pandas_dataframe(X, *, name='X'):
             f"Provided variable {name} is not of type pandas.DataFrame.")
 
 
+@log_step
+def resample_spectral_bands(df, bandwidth, agg_func='mean'):
+    """
+    Resample sepctral bands given some bandwidth.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        The data frame with the spectral bands.
+    bandwidth : float
+        The bandwidth to which to resample.
+    agg_func : Union[str, callable] (default: 'mean')
+        Aggregate function.
+
+    Returns
+    -------
+    pd.DataFrame : The data frame with resampled spectral bands.
+    """
+    s = ((df.index.to_series()) / bandwidth).astype(int)
+
+    resampled_index = (
+        s
+        .groupby(s)
+        .apply(lambda df: df.loc[lambda df: df.index == df.index.max()])
+        .reset_index(level=0, drop=True)
+    )
+
+    return (
+        df
+        .groupby(s)
+        .agg(agg_func)
+        .set_index(resampled_index.index)
+    )
+
+
 class ParetoTransformer(TransformerMixin):
     """"
     Applies Pareto scaling.
