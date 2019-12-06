@@ -1,7 +1,27 @@
+import logging
+import time
+from functools import wraps
+
 import numpy as np
 import pandas as pd
 from sklearn.base import TransformerMixin, BaseEstimator
 from sklearn.utils.validation import check_array
+
+
+def log_step(func):
+    logger = logging.getLogger()
+    
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        
+        tic = time.perf_counter()
+        out = func(*args, **kwargs)
+        toc = time.perf_counter() - tic
+
+        logger.debug(f'{func.__name__} shape={out.shape} time={toc:.3f}')
+        
+        return out
+    return wrapper
 
 
 def _check_if_pandas_dataframe(X, *, name='X'):
