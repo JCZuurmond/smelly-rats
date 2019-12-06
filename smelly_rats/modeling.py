@@ -45,7 +45,7 @@ class ParetoScaler(BaseEstimator, TransformerMixin):
         return (X.T / scaling_factors).T
 
     def __repr__(self):
-        return 'ParetoTransformer()'
+        return f'ParetoScaler(with_mean={self.with_mean})'
 
 
 class ColumnSliceSelector(BaseEstimator, TransformerMixin):
