@@ -11,7 +11,7 @@ def _check_if_pandas_dataframe(X, *, name='X'):
             f"Provided variable {name} is not of type pandas.DataFrame.")
 
 
-class ParetoTransformer(BaseEstimator, TransformerMixin):
+class ParetoScaler(BaseEstimator, TransformerMixin):
     """"
     Applies Pareto scaling.
 
