@@ -20,6 +20,12 @@ def log_step(func):
 
 
 @log_step
+def init(df):
+    """Purely functional for `log_step`."""
+    return df
+
+
+@log_step
 def resample_spectral_bands(df, bandwidth, agg_func='mean'):
     """
     Resample sepctral bands given some bandwidth.
