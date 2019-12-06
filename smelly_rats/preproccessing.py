@@ -5,16 +5,16 @@ from functools import wraps
 
 def log_step(func):
     logger = logging.getLogger()
-    
+
     @wraps(func)
     def wrapper(*args, **kwargs):
-        
+
         tic = time.perf_counter()
         out = func(*args, **kwargs)
         toc = time.perf_counter() - tic
 
         logger.debug(f'{func.__name__} shape={out.shape} time={toc:.3f}')
-        
+
         return out
     return wrapper
 
