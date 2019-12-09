@@ -48,16 +48,18 @@ class ParetoScaler(BaseEstimator, TransformerMixin):
         return f'ParetoScaler(with_mean={self.with_mean})'
 
 
-class ColumnSliceSelector(BaseEstimator, TransformerMixin):
+class BandSelector(BaseEstimator, TransformerMixin):
     """
-    Select columns based on a slice.
+    Select a band (range of columns).
 
-    This is found useful for selecting specifics bands in a multispectral data.
+    This is useful for selecting specifics bands in a multispectral data.
 
     Parameters
     ----------
-    column_slice : slice
-        The column slice to select.
+    start : float
+        Start of the band.
+    stop : float
+        End of the band.
     """
 
     def __init__(self, start, stop):
