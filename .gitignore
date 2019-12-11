@@ -3,3 +3,4 @@ data/
 *.egg-info/
 .vscode
 dist/
+build/
