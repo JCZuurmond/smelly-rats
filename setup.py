@@ -24,7 +24,7 @@ setuptools.setup(
     description='',
     url='TODO',
     license='Open source',
-    packages=setuptools.find_packages('smelly_rats'),
+    packages=['smelly_rats'],
     version='0.1.0',
     install_requires=requirements,
     setup_requires=setup_requirements,
