@@ -77,8 +77,8 @@ class BandSelector(BaseEstimator, TransformerMixin):
         return X.loc[:, self.column_slice]
 
     def __repr__(self):
-        return (f'BandSelector(start={self.start:.3f},'
-                f'stop={self.stop:.3f})')
+        return (f'BandSelector(start={self.start}, '
+                f'stop={self.stop})')
 
 
 def make_scorer(*args, **kwargs):
