@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from sklearn.base import TransformerMixin, BaseEstimator
+from sklearn.metrics import make_scorer as sklearn_make_score
 from sklearn.utils.validation import check_array
 
 
@@ -78,3 +79,15 @@ class BandSelector(BaseEstimator, TransformerMixin):
     def __repr__(self):
         return (f'ColumnSliceSelector(start={self.start:.3f},'
                 f'stop={self.stop:.3f})')
+
+
+def make_scorer(*args, **kwargs):
+    def _(func):
+        return sklearn_make_score(func, *args, **kwargs)
+    return _
+
+
+@make_scorer(greater_is_better=False)
+def rmse(y, y_hat):
+    y = y.values if hasattr(y, 'values') else y
+    return np.sqrt(np.square(y.flatten() - y_hat.flatten()).mean())
