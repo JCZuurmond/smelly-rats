@@ -1,6 +1,6 @@
 # Smelly rats
 
-Replicating - or trying to replicate - a [paper][1] about classifying rats which have
+Replicating - or trying to replicate - a [paper](1) about classifying rats which have
 different onion diets.
 
 ## Description
