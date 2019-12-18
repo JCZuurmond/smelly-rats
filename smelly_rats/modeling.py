@@ -77,7 +77,7 @@ class BandSelector(BaseEstimator, TransformerMixin):
         return X.loc[:, self.column_slice]
 
     def __repr__(self):
-        return (f'ColumnSliceSelector(start={self.start:.3f},'
+        return (f'BandSelector(start={self.start:.3f},'
                 f'stop={self.stop:.3f})')
 
 
