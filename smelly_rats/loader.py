@@ -1,4 +1,5 @@
 import pandas as pd
+import scipy.io
 
 
 def load_smelly_rats(path):
@@ -8,19 +9,17 @@ def load_smelly_rats(path):
     Parameters
     ----------
     path : string
-        Path to excel file.
+        Path to mat file.
 
     Returns
     -------
-    (pd.DataFrame, pd.DataFrame) : The (hnmr spectra, target) data frames.
+    (pd.DataFrame, np.array) : The hnmr spectra and target.
     """
-    xl = pd.ExcelFile(path)
-
-    hnmr_spectra = (
-        pd.read_excel(xl, sheet_name=0, index_col=0)
-        .rename(columns=lambda col: col.replace("'", ""))
+    mat = scipy.io.loadmat(path)
+    hnmr_spectra = pd.DataFrame(
+        mat['x'].T,
+        index=mat['ppm'][0],
+        columns=[c[0][0] for c in mat['Samples_name']]
     )
 
-    target = pd.read_excel(xl, sheet_name=1, usecols=range(10, 15))
-
-    return hnmr_spectra, target
+    return hnmr_spectra, mat['onion'].flatten()
