@@ -11,10 +11,15 @@ with open('README.md', encoding='UTF-8') as readme_file:
     readme = readme_file.read()
 
 
-requirements = []
+requirements = [
+    'pandas>=0.25.0',
+    'xlrd>=1.2.0',
+]
 setup_requirements = []
 test_requirements = ['pytest']
-extra_requirements = {}
+extra_requirements = {
+    'develop': ['matplotlib>=3.1.2', 'jupyter>=1.0.0'],
+}
 
 
 setuptools.setup(

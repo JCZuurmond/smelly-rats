@@ -24,7 +24,7 @@ These repository implements a couple of the applied analysis in Python:
 	the resolution of the spectral bands.
 
 ## Requirements
-Python 3 and [these packages](REQUIREMENTS.txt).
+Python 3 and [see here](setup.py).
 
 ## Data
 The data can be found [here](http://www.models.life.ku.dk/onionnmr).
