@@ -27,7 +27,7 @@ setuptools.setup(
     author='Cor Zuurmond',
     author_email='jczuurmond@protonmail.com',
     description='',
-    url='TODO',
+    url='https://github.com/JCZuurmond/smelly-rats',
     license='Open source',
     packages=['smelly_rats'],
     version='0.1.0',
