@@ -14,6 +14,7 @@ with open('README.md', encoding='UTF-8') as readme_file:
 requirements = [
     'pandas>=0.25.0',
     'xlrd>=1.2.0',
+    'scikit-learn>=0.22',
 ]
 setup_requirements = []
 test_requirements = ['pytest']
