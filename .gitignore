@@ -4,3 +4,4 @@ data/*.mat
 .vscode
 dist/
 build/
+docs/ratsandonions.pdf
